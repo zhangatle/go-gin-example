@@ -11,11 +11,6 @@ func InitRouter() *gin.Engine {
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 	gin.SetMode(setting.RunMode)
-	r.GET("/", func(context *gin.Context) {
-		context.JSON(200, gin.H{
-			"message": "hello go",
-		})
-	})
 	apiV1 := r.Group("/api/v1")
 	{
 		// 获取标签列表

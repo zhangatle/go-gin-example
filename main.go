@@ -7,13 +7,13 @@ import (
 	"net/http"
 )
 
-func main()  {
+func main() {
 	r := routers.InitRouter()
 	s := &http.Server{
-		Addr: fmt.Sprintf(":%d", setting.HTTPort),
-		Handler: r,
-		ReadTimeout: setting.ReadTimeout,
-		WriteTimeout: setting.WriteTimeout,
+		Addr:           fmt.Sprintf(":%d", setting.HTTPort),
+		Handler:        r,
+		ReadTimeout:    setting.ReadTimeout,
+		WriteTimeout:   setting.WriteTimeout,
 		MaxHeaderBytes: 1 << 20,
 	}
 	_ = s.ListenAndServe()

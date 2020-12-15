@@ -7,13 +7,13 @@ import (
 )
 
 var (
-	Cfg *ini.File
-	RunMode string
-	HTTPort int
-	ReadTimeout time.Duration
+	Cfg          *ini.File
+	RunMode      string
+	HTTPort      int
+	ReadTimeout  time.Duration
 	WriteTimeout time.Duration
-	PageSize int
-	JwtSecret string
+	PageSize     int
+	JwtSecret    string
 )
 
 func init() {

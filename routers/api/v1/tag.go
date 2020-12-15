@@ -30,13 +30,13 @@ func GetTags(c *gin.Context) {
 	data["total"] = models.GetTagTotal(maps)
 	c.JSON(http.StatusOK, gin.H{
 		"code": code,
-		"msg": e.GetMsg(code),
+		"msg":  e.GetMsg(code),
 		"data": data,
 	})
 }
 
 // 新增文章标签
-func AddTag(c *gin.Context)  {
+func AddTag(c *gin.Context) {
 	name := c.Query("name")
 	state := com.StrTo(c.DefaultQuery("state", "0")).MustInt()
 	createdBy := c.Query("created_by")
@@ -52,19 +52,19 @@ func AddTag(c *gin.Context)  {
 		if !models.ExistTagByName(name) {
 			code = e.Success
 			models.AddTag(name, state, createdBy)
-		} else{
+		} else {
 			code = e.ErrorExistTag
 		}
 	}
 	c.JSON(http.StatusOK, gin.H{
 		"code": code,
-		"msg": e.GetMsg(code),
+		"msg":  e.GetMsg(code),
 		"data": make(map[string]string),
 	})
 }
 
 // 修改文章标签
-func EditTag(c *gin.Context)  {
+func EditTag(c *gin.Context) {
 	id := com.StrTo(c.Param("id")).MustInt()
 	name := c.Query("name")
 	modifiedBy := c.Query("modified_by")
@@ -91,19 +91,19 @@ func EditTag(c *gin.Context)  {
 				data["state"] = state
 			}
 			models.EditTag(id, data)
-		}else {
+		} else {
 			code = e.ErrorNotExistTag
 		}
- 	}
- 	c.JSON(http.StatusOK, gin.H{
- 		"code": code,
- 		"msg": e.GetMsg(code),
- 		"data": make(map[string]string),
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"code": code,
+		"msg":  e.GetMsg(code),
+		"data": make(map[string]string),
 	})
 }
 
 // 删除文章标签
-func DeleteTag(c *gin.Context)  {
+func DeleteTag(c *gin.Context) {
 	id := com.StrTo(c.Param("id")).MustInt()
 	valid := validation.Validation{}
 	valid.Min(id, 1, "id").Message("ID必须大于0")
@@ -118,7 +118,7 @@ func DeleteTag(c *gin.Context)  {
 	}
 	c.JSON(http.StatusOK, gin.H{
 		"code": code,
-		"msg": e.GetMsg(code),
+		"msg":  e.GetMsg(code),
 		"data": make(map[string]string),
 	})
 }

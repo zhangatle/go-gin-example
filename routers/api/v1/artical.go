@@ -33,13 +33,13 @@ func GetArticle(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{
 		"code": code,
-		"msg": e.GetMsg(code),
+		"msg":  e.GetMsg(code),
 		"data": data,
 	})
 }
 
 // 获取多个文章
-func GetArticles(c *gin.Context)  {
+func GetArticles(c *gin.Context) {
 	data := make(map[string]interface{})
 	maps := make(map[string]interface{})
 	valid := validation.Validation{}
@@ -68,13 +68,13 @@ func GetArticles(c *gin.Context)  {
 	}
 	c.JSON(http.StatusOK, gin.H{
 		"code": code,
-		"msg": e.GetMsg(code),
+		"msg":  e.GetMsg(code),
 		"data": data,
 	})
 }
 
 // 新增文章
-func AddArticle(c *gin.Context)  {
+func AddArticle(c *gin.Context) {
 	tagId := com.StrTo(c.Query("tag_id")).MustInt()
 	title := c.Query("title")
 	desc := c.Query("desc")
@@ -101,7 +101,7 @@ func AddArticle(c *gin.Context)  {
 			data["state"] = state
 			models.AddArticle(data)
 			code = e.Success
-		}else{
+		} else {
 			code = e.ErrorNotExistTag
 		}
 	} else {
@@ -111,13 +111,13 @@ func AddArticle(c *gin.Context)  {
 	}
 	c.JSON(http.StatusOK, gin.H{
 		"code": code,
-		"msg": e.GetMsg(code),
+		"msg":  e.GetMsg(code),
 		"data": make(map[string]interface{}),
 	})
 }
 
 // 修改文章
-func EditArticle(c *gin.Context)  {
+func EditArticle(c *gin.Context) {
 	valid := validation.Validation{}
 	id := com.StrTo(c.Param("id")).MustInt()
 	tagId := com.StrTo(c.Query("tag_id")).MustInt()
@@ -157,10 +157,10 @@ func EditArticle(c *gin.Context)  {
 				data["modified_by"] = modifiedBy
 				models.EditArticle(id, data)
 				code = e.Success
-			}else {
+			} else {
 				code = e.ErrorNotExistTag
 			}
-		} else{
+		} else {
 			code = e.ErrorNotExistArticle
 		}
 	} else {
@@ -170,22 +170,22 @@ func EditArticle(c *gin.Context)  {
 	}
 	c.JSON(http.StatusOK, gin.H{
 		"code": code,
-		"msg": e.GetMsg(code),
+		"msg":  e.GetMsg(code),
 		"data": make(map[string]interface{}),
 	})
 }
 
 // 删除文章
-func DeleteArticle(c *gin.Context)  {
+func DeleteArticle(c *gin.Context) {
 	id := com.StrTo(c.Param("id")).MustInt()
 	valid := validation.Validation{}
-	valid.Min(id, 1, "id"). Message("ID必须大于0")
+	valid.Min(id, 1, "id").Message("ID必须大于0")
 	code := e.InvalidParams
 	if !valid.HasErrors() {
 		if models.ExistArticleByID(id) {
 			models.DeleteArticle(id)
 			code = e.Success
-		}else {
+		} else {
 			code = e.ErrorNotExistArticle
 		}
 	} else {
@@ -195,7 +195,7 @@ func DeleteArticle(c *gin.Context)  {
 	}
 	c.JSON(http.StatusOK, gin.H{
 		"code": code,
-		"msg": e.GetMsg(code),
+		"msg":  e.GetMsg(code),
 		"data": make(map[string]interface{}),
 	})
 }
