@@ -2,7 +2,9 @@ package routers
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/zhangatle/go-gin-example/middleware/jwt"
 	"github.com/zhangatle/go-gin-example/pkg/setting"
+	"github.com/zhangatle/go-gin-example/routers/api"
 	v1 "github.com/zhangatle/go-gin-example/routers/api/v1"
 )
 
@@ -12,7 +14,9 @@ func InitRouter() *gin.Engine {
 	r.Use(gin.Recovery())
 	gin.SetMode(setting.RunMode)
 	apiV1 := r.Group("/api/v1")
+	apiV1.Use(jwt.JWT())
 	{
+		r.GET("/auth", api.GetAuth)
 		// 获取标签列表
 		apiV1.GET("/tags", v1.GetTags)
 		// 添加标签
