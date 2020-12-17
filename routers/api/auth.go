@@ -5,8 +5,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/zhangatle/go-gin-example/models"
 	"github.com/zhangatle/go-gin-example/pkg/e"
+	"github.com/zhangatle/go-gin-example/pkg/logging"
 	"github.com/zhangatle/go-gin-example/pkg/util"
-	"log"
 	"net/http"
 )
 
@@ -38,7 +38,7 @@ func GetAuth(c *gin.Context) {
 		}
 	} else {
 		for _, err := range valid.Errors {
-			log.Println(err.Key, err.Message)
+			logging.Info(err.Key, err.Message)
 		}
 	}
 	c.JSON(http.StatusOK, gin.H{
